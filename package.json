@@ -1,0 +1,48 @@
+{
+	"name": "cocoon-xml-sugar",
+	"version": "2.0.0-alpha.0",
+	"description": "Sugar for the XML that holds the configuration of a Cocoon.io Project",
+	"main": "out/index.js",
+	"types": "out/index.d.ts",
+	"scripts": {
+		"inspect-spec": "node_modules/eslint/bin/eslint.js spec/tests && node_modules/jshint/bin/jshint spec/tests; exit 0",
+		"inspect-src": "node_modules/tslint/bin/tslint --project tsconfig.json; exit 0",
+		"postinstall": "node_modules/typescript/bin/tsc",
+		"test": "node_modules/jasmine/bin/jasmine.js",
+		"transpile": "node_modules/typescript/bin/tsc"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CocoonIO/cocoon-xml-sugar"
+	},
+	"keywords": [
+		"apps",
+		"cocoon",
+		"cocoon.io",
+		"cordova",
+		"games",
+		"html5",
+		"javascript",
+		"js",
+		"typescript",
+		"xml"
+	],
+	"author": "Ludei Developers <devs@ludei.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/CocoonIO/cocoon-xml-sugar/issues"
+	},
+	"homepage": "https://github.com/CocoonIO/cocoon-xml-sugar",
+	"dependencies": {
+		"detect-node": "^2.0.3",
+		"xmldom": "^0.1.27"
+	},
+	"devDependencies": {
+		"@types/node": "^7.0.5",
+		"eslint": "^3.17.1",
+		"jasmine": "^2.5.3",
+		"jshint": "^2.9.4",
+		"tslint": "^4.5.1",
+		"typescript": "^2.2.1"
+	}
+}
