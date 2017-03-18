@@ -3,6 +3,10 @@
 import * as detectNode from "detect-node";
 import * as xmldom from "xmldom";
 
+import {bundleIdAliases} from "./constants/c-bundle-id-aliases";
+import {canvasplusPlugins} from "./constants/c-canvasplus-plugins";
+import {versionCodeAliases} from "./constants/c-version-code-aliases";
+import {webviewplusPlugins} from "./constants/c-webviewplus-plugins";
 import {Environment} from "./enums/e-environment";
 import {Orientation} from "./enums/e-orientation";
 import Utils from "./utils";
@@ -448,8 +452,7 @@ export default class XMLSugar {
 
 	/**
 	 * Gets the orientation of the project.
-	 * @param platform Name of the platform the orientation affects to.
-	 * Don't set to retrieve the general orientation.
+	 * @param platform Name of the platform the orientation affects to. Don't set to retrieve the general orientation.
 	 * @param fallback If you want to retrieve the general orientation in case there is no specific for the platform.
 	 * @returns {Orientation}
 	 */
@@ -636,9 +639,8 @@ export default class XMLSugar {
 
 	/**
 	 * Gets the environment, that is the webview, of the project.
-	 * @param platform Name of the platform the environment affects to.
-	 * Don't set to retrieve the general environment.
-	 * @returns {Orientation}
+	 * @param platform Name of the platform the environment affects to. Don't set to retrieve the general environment.
+	 * @returns {Environment}
 	 */
 	public getEnvironment(platform?: string): Environment {
 		if (!platform) {
@@ -653,15 +655,15 @@ export default class XMLSugar {
 			return environments[0];
 		}
 
-		let infos: any[] = [canvasPlusPlugins, webviewPlusPlugins];
+		let environmentsPlugins: any[] = [canvasplusPlugins, webviewplusPlugins];
 
 		let env = Environment.WEBVIEW;
-		for (let info of infos) {
-			let platformInfo = info[platform];
-			if (platformInfo) {
-				let plugin = this.findPlugin(platformInfo.plugin);
-				if (plugin) {
-					env = infos[platformInfo].value;
+		for (let environmentPlugins of environmentsPlugins) {
+			let platformEnvironmentPlugin = environmentPlugins[platform];
+			if (platformEnvironmentPlugin) {
+				let pluginElement = this.findPlugin(platformEnvironmentPlugin.plugin);
+				if (pluginElement) {
+					env = environmentPlugins.value;
 				}
 			}
 		}
@@ -674,24 +676,24 @@ export default class XMLSugar {
 	 * @param platform Name of the platform this environment will affect to. Don't set to affect all o them.
 	 */
 	public setEnvironment(value: Environment, platform?: string) {
-		let names = platform ? [platform] : ["ios", "android"];
+		let names = platform ? [platform] : ["android", "ios"];
 
 		for (let name of names) {
 			let info: any;
 			if (value === Environment.CANVAS_PLUS) {
-				info = canvasPlusPlugins[name];
+				info = canvasplusPlugins[name];
 				if (info) {
 					this.addPlugin(info.plugin);
-					this.removePlugin(webviewPlusPlugins[name].plugin);
+					this.removePlugin(webviewplusPlugins[name].plugin);
 				}
 			} else if (value === Environment.WEBVIEW_PLUS) {
-				info = webviewPlusPlugins[name];
+				info = webviewplusPlugins[name];
 				if (info) {
 					this.addPlugin(info.plugin);
-					this.removePlugin(canvasPlusPlugins[name].plugin);
+					this.removePlugin(canvasplusPlugins[name].plugin);
 				}
 			} else {
-				let infos = [canvasPlusPlugins, webviewPlusPlugins];
+				let infos = [canvasplusPlugins, webviewplusPlugins];
 				for (let auxInfo of infos) {
 					info = auxInfo[name];
 					if (!info) {
@@ -739,7 +741,7 @@ export default class XMLSugar {
 		let plugin = this.findPlugin(pluginName);
 		let result: string = null;
 		if (plugin) {
-			let nodes = plugin.childNodes;
+			let nodes = Array.prototype.slice.call(plugin.childNodes);
 			for (let node of nodes) {
 				if (node.nodeType === 1 && (<Element> node).getAttribute("name") === varName) {
 					result = XMLSugar.decode((<Element> node).getAttribute("value")) || ""; // nodeType === 1 implies it's an Element
@@ -808,7 +810,7 @@ export default class XMLSugar {
 		this.addPlugin(pluginName);
 		let plugin = this.findPlugin(pluginName);
 		if (plugin) {
-			let nodes = plugin.childNodes;
+			let nodes = Array.prototype.slice.call(plugin.childNodes);
 			let node: Element = null;
 			for (let auxNode of nodes) {
 				if (auxNode.nodeType === 1 && (<Element> auxNode).getAttribute("name") === varName) {
@@ -826,10 +828,25 @@ export default class XMLSugar {
 	}
 
 	/**
+	 * Removes a variable from the plugin.
+	 * @param pluginName Name of the plugin to remove the variable from.
+	 * @param varName Name of the variable.
+	 */
+	public removePluginVariable(pluginName: string, varName: string) {
+		let filter = {
+			attributes: [
+				{name: "name", value: pluginName},
+			],
+			tag: "variable",
+		};
+		XMLDOM.removeNode(this, filter);
+	}
+
+	/**
 	 * Gets a node in the project XML.
 	 * @param tagName Name of the node.
 	 * @param pPlatform Parent platform of the node.
-	 * @param pFallback If you want to try to retrive a general node if the node wasn't found in the platform.
+	 * @param pFallback If you want to try to retrieve a general node if the node wasn't found in the platform.
 	 * @returns {Element} The XML node.
 	 */
 	public getNode(tagName: string, pPlatform?: string, pFallback: boolean = true): Element {
@@ -880,42 +897,6 @@ export default class XMLSugar {
 		});
 	}
 }
-
-const canvasPlusPlugins: any = {
-	android: {
-		plugin: "com.ludei.canvasplus.android",
-	},
-	ios: {
-		plugin: "com.ludei.canvasplus.ios",
-	},
-	value: Environment.CANVAS_PLUS,
-};
-
-const webviewPlusPlugins: any = {
-	android: {
-		plugin: "com.ludei.webviewplus.android",
-	},
-	ios: {
-		plugin: "com.ludei.webviewplus.ios",
-	},
-	value: Environment.WEBVIEW_PLUS,
-};
-
-const bundleIdAliases: {[key: string]: string} = {
-	android: "android-packageName",
-	ios: "ios-CFBundleIdentifier",
-	osx: "osx-CFBundleIdentifier",
-	/*ubuntu: "ubuntu-tmpPlaceholder", // TODO: find real name
-	 windows: "windows-tmpPlaceholder", // TODO: find real name*/
-};
-
-const versionCodeAliases: {[key: string]: string} = {
-	android: "android-versionCode",
-	ios: "ios-CFBundleVersion",
-	osx: "osx-CFBundleVersion",
-	/*ubuntu: "ubuntu-tmpVersionPlaceholder", // TODO: find real name*/
-	windows: "windows-packageVersion",
-};
 
 const cocoonNS = "http://cocoon.io/ns/1.0";
 const cordovaNS = "http://cordova.apache.org/ns/1.0";
