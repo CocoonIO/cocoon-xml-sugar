@@ -1,7 +1,13 @@
-# Cocoon XML Sugar
-[![Build Status](https://travis-ci.org/CocoonIO/cocoon-xml-sugar.svg)](https://travis-ci.org/CocoonIO/cocoon-xml-sugar)
+# Cocoon XML Sugar [![Build Status](https://travis-ci.org/CocoonIO/cocoon-xml-sugar.svg)](https://travis-ci.org/CocoonIO/cocoon-xml-sugar)
+
 [![bitHound Overall Score](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/score.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar)
+[![bitHound Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/dependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/devDependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/code.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar)
+
 [![Code Climate](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/gpa.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar)
+[![Test Coverage](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/coverage.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/coverage)
+[![Issue Count](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/issue_count.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar)
 
 Sugar for the XML that holds the configuration of a Cocoon.io Project.
 
@@ -68,11 +74,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Imanol Fernandez** - *Initial work* - [MortimerGoro](https://github.com/MortimerGoro)
+* **Imanol Fernandez** - *Version 1.0.0* - [MortimerGoro](https://github.com/MortimerGoro)
 * **Jorge Domínguez** - *Version 2.0.0* - [BlueSialia](https://github.com/BlueSialia)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
