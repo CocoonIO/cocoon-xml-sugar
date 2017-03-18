@@ -1,4 +1,4 @@
-# Cocoon XML Sugar [![Build Status](https://travis-ci.org/CocoonIO/cocoon-xml-sugar.svg)](https://travis-ci.org/CocoonIO/cocoon-xml-sugar)
+# Cocoon XML Sugar [![Build Status](https://travis-ci.org/CocoonIO/cocoon-xml-sugar.svg?branch=master)](https://travis-ci.org/CocoonIO/cocoon-xml-sugar)
 
 [![bitHound Overall Score](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/score.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar)
 [![bitHound Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/dependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
