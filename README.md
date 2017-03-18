@@ -9,6 +9,8 @@
 [![Test Coverage](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/coverage.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/coverage)
 [![Issue Count](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/issue_count.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar)
 
+---
+
 Sugar for the XML that holds the configuration of a Cocoon.io Project.
 
 ## Getting Started
