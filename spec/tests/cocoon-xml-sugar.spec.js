@@ -3,9 +3,7 @@
 const XMLSugar = require("../../out").default;
 const fs = require("fs");
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-
-describe("A spec for the Cocoon SDK", () => {
+describe("A spec for the Cocoon XML Sugar", () => {
 	let xmlSugar;
 	const xmlString = fs.readFileSync(__dirname.replace("tests", "assets/config.xml"), "utf8");
 
@@ -21,10 +19,10 @@ describe("A spec for the Cocoon SDK", () => {
 		expect(xmlSugar.getAuthorURL()).toBe("http://cordova.io");
 		expect(xmlSugar.getBundleId()).toBe("io.cordova.hellocordova");
 		expect(xmlSugar.getVersion()).toBe("1.0.0");
-		expect(xmlSugar.getVersionCode()).toBe("");
+		expect(xmlSugar.getVersionCode()).toBe("1.0.0");
 		expect(xmlSugar.getCocoonVersion()).toBe("latest");
 		expect(xmlSugar.getContentURL()).toBe("index.html");
-		expect(xmlSugar.getOrientation()).toBe(2);
+		expect(xmlSugar.getOrientation()).toBe(3);
 		expect(xmlSugar.isFullScreen()).toBeFalsy();
 	});
 });
