@@ -1,6 +1,6 @@
 {
 	"name": "cocoon-xml-sugar",
-	"version": "2.0.0-alpha.0",
+	"version": "2.0.0-alpha.1",
 	"description": "Sugar for the XML that holds the configuration of a Cocoon.io Project",
 	"main": "out/index.js",
 	"types": "out/index.d.ts",
@@ -38,8 +38,8 @@
 		"xmldom": "^0.1.27"
 	},
 	"devDependencies": {
-		"@types/node": "^7.0.5",
-		"eslint": "^3.17.1",
+		"@types/node": "^7.0.8",
+		"eslint": "^3.18.0",
 		"jasmine": "^2.5.3",
 		"jshint": "^2.9.4",
 		"tslint": "^4.5.1",
