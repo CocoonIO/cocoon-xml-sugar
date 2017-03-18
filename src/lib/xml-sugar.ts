@@ -50,7 +50,7 @@ export default class XMLSugar {
 	 * @returns {Document} the same configuration using only Cordova tags.
 	 */
 	private static replaceOldPlatformSyntax(doc: Document): Document {
-		let platforms = doc.getElementsByTagNameNS(cocoonNS, "platform");
+		let platforms = Array.prototype.slice.call(doc.getElementsByTagNameNS(cocoonNS, "platform"));
 
 		for (let platform of platforms) {
 			let platformEle: Element = doc.createElementNS(null, "platform");
@@ -89,7 +89,7 @@ export default class XMLSugar {
 	 * @returns {Document} the same configuration using only Cordova tags.
 	 */
 	private static replaceOldPluginSyntax(doc: Document): Document {
-		let plugins = doc.getElementsByTagNameNS(cocoonNS, "plugin");
+		let plugins = Array.prototype.slice.call(doc.getElementsByTagNameNS(cocoonNS, "plugin"));
 
 		for (let plugin of plugins) {
 			let pluginEle = doc.createElementNS(null, "plugin");
@@ -126,7 +126,7 @@ export default class XMLSugar {
 	 * @returns {Document} the same configuration using only Cordova tags.
 	 */
 	private static replaceErrors(doc: Document): Document {
-		let plugins = doc.getElementsByTagName("plugin");
+		let plugins = Array.prototype.slice.call(doc.getElementsByTagName("plugin"));
 
 		for (let plugin of plugins) {
 			if (Utils.isValidGit(plugin.getAttribute("name")) &&
@@ -140,19 +140,15 @@ export default class XMLSugar {
 	public doc: XMLDocument;
 	public root: Element;
 	private serializer: XMLSerializer;
-	private document: HTMLDocument;
 
 	constructor(text: string) {
 		let parser: DOMParser;
 		if (!detectNode) { // We are on a full browser
 			parser = new DOMParser();
 			this.serializer = new XMLSerializer();
-			this.document = document;
 		} else { // We are on NodeJS
 			parser = new xmldom.DOMParser();
 			this.serializer = new xmldom.XMLSerializer();
-			let dom = new xmldom.DOMImplementation();
-			this.document = dom.createDocument();
 		}
 
 		this.doc = XMLSugar.replaceOldSyntax(parser.parseFromString(text, "text/xml"));
