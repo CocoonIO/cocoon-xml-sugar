@@ -8,7 +8,7 @@ export default class XMLDOM {
 
 		let nodes = XMLDOM.getElements(sugar, filter);
 
-		for (let node of <Element[]> <any> nodes) {
+		for (let node of nodes) {
 			if (XMLDOM.matchesFilter(sugar, node, filter)) {
 				return node;
 			}
@@ -27,7 +27,7 @@ export default class XMLDOM {
 		let nodes = XMLDOM.getElements(doc, filter);
 
 		let result: Element[] = [];
-		for (let node of <Element[]> <any> nodes) {
+		for (let node of nodes) {
 			if (XMLDOM.matchesFilter(doc, node, filter)) {
 				result.push(node);
 			}
@@ -81,7 +81,7 @@ export default class XMLDOM {
 			/*remove empty platform node*/
 			if (parent.tagName === "platform" && parent.parentNode) {
 				let children = parent.childNodes;
-				for (let child of <Element[]> <any> children) {
+				for (let child of children) {
 					if (child.nodeType !== 3) {
 						return;
 					}
@@ -92,7 +92,7 @@ export default class XMLDOM {
 	}
 
 	private static getElements(sugar: XMLSugar, filter: any) {
-		return sugar.doc.getElementsByTagName(filter.tag || "*");
+		return Array.prototype.slice.call(sugar.doc.getElementsByTagName(filter.tag || "*"));
 	}
 
 	private static matchesFilter(sugar: XMLSugar, node: Element, filter: any) {
