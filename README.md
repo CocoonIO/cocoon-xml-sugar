@@ -34,7 +34,7 @@ Clone the repository.
 git clone https://github.com/CocoonIO/cocoon-xml-sugar.git
 ```
 
-And install its dependencies
+And install its dependencies.
 
 ```bash
 npm install
@@ -52,13 +52,13 @@ npm test
 
 ### Coding style tests
 
-To inspect the code style of the [source code](src):
+To inspect the code style of the [source code](src).
 
 ```bash
 npm run inspect-src
 ```
 
-To inspect the code style of the [tests](spec/tests):
+To inspect the code style of the [tests](spec/tests).
 
 ```bash
 npm run inspect-spec
@@ -93,14 +93,14 @@ import XMLSugar from "cocoon-xml-sugar";
 
 ## Built With
 
-* [Typescript](https://www.typescriptlang.org/) - Language
-* [NPM](http://www.npmjs.com/) - Dependency Management
-* [Jasmine](https://jasmine.github.io/) - Testing Framework
+* [Typescript](https://www.typescriptlang.org/) - Language.
+* [NPM](http://www.npmjs.com/) - Dependency Management.
+* [Jasmine](https://jasmine.github.io/) - Testing Framework.
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the
-[tags on this repository](https://github.com/CocoonIO/cocoon-xml-sugar/tags). 
+[tags on this repository](https://github.com/CocoonIO/cocoon-xml-sugar/tags).
 
 ## Authors
 
@@ -111,4 +111,4 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
