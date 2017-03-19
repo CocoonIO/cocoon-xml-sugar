@@ -1,7 +1,8 @@
 {
 	"name": "cocoon-xml-sugar",
-	"version": "2.0.0-alpha.1",
+	"version": "2.0.0-alpha.2",
 	"description": "Sugar for the XML that holds the configuration of a Cocoon.io Project",
+	"files": ["out"],
 	"main": "out/index.js",
 	"types": "out/index.d.ts",
 	"scripts": {
