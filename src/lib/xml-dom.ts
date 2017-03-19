@@ -4,8 +4,6 @@ import XMLSugar from "./xml-sugar";
 
 export default class XMLDOM {
 	public static findNode(sugar: XMLSugar, filter: any): Element {
-		filter = filter || {};
-
 		let nodes = XMLDOM.getElements(sugar, filter);
 
 		for (let node of nodes) {
@@ -14,16 +12,14 @@ export default class XMLDOM {
 			}
 		}
 
-		if (filter.platform && filter.fallback) {
-			delete filter.platform;
+		if (filter.parent && filter.fallback) {
+			delete filter.parent;
 			return XMLDOM.findNode(sugar, filter);
 		}
 		return null;
 	}
 
 	public static findNodes(doc: XMLSugar, filter: any): Element[] {
-		filter = filter || {};
-
 		let nodes = XMLDOM.getElements(doc, filter);
 
 		let result: Element[] = [];
@@ -50,10 +46,9 @@ export default class XMLDOM {
 	}
 
 	public static updateOrAddNode(sugar: XMLSugar, filter: any, data: any) {
-		filter = filter || {};
 		let found = XMLDOM.findNode(sugar, filter);
 		if (!found) {
-			let parent = XMLDOM.parentNodeForPlatform(sugar, filter.platform);
+			let parent = XMLDOM.parentNodeForPlatform(sugar, filter.parent);
 			found = sugar.doc.createElementNS(null, filter.tag);
 			XMLDOM.addNodeIndented(sugar, found, parent);
 		}
@@ -96,11 +91,9 @@ export default class XMLDOM {
 	}
 
 	private static matchesFilter(sugar: XMLSugar, node: Element, filter: any) {
-		filter = filter || {};
 		let parent = <Element> node.parentNode;
-		if (filter.platform) {
-			if (parent.tagName !== "platform" ||
-				parent.getAttribute && parent.getAttribute("name") !== filter.platform) {
+		if (filter.parent) {
+			if (parent.getAttribute && parent.getAttribute("name") !== filter.parent) {
 				return false;
 			}
 		} else if (parent !== sugar.root) {

@@ -89,5 +89,7 @@ describe("A spec for the Cocoon XML Sugar", () => {
 		let pluginVariable = xmlSugar.findPluginVariable("cordova-plugin-whitelist", "EXAMPLE_VAR");
 		expect(pluginVariable).toBe("EXAMPLE_VALUE");
 		xmlSugar.removePluginVariable("cordova-plugin-whitelist", "EXAMPLE_VAR");
+		pluginVariable = xmlSugar.findPluginVariable("cordova-plugin-whitelist", "EXAMPLE_VAR");
+		expect(pluginVariable).toBeUndefined();
 	});
 });
