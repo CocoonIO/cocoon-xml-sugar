@@ -421,7 +421,7 @@ export default class XMLSugar {
 	public getContentURL(pPlatform?: string, pFallback: boolean = true): string {
 		let filter = {
 			fallback: pFallback,
-			platform: pPlatform,
+			parent: pPlatform,
 			tag: "content",
 		};
 		let node = XMLDOM.findNode(this, filter);
@@ -435,7 +435,7 @@ export default class XMLSugar {
 	 */
 	public setContentURL(pValue: string, pPlatform?: string) {
 		let filter = {
-			platform: pPlatform,
+			parent: pPlatform,
 			tag: "content",
 		};
 		if (pValue) {
@@ -602,7 +602,7 @@ export default class XMLSugar {
 				{name: "name", value: name},
 			],
 			fallback: pFallback,
-			platform: pPlatform,
+			parent: pPlatform,
 			tag: "preference",
 		};
 		let node = XMLDOM.findNode(this, filter);
@@ -620,7 +620,7 @@ export default class XMLSugar {
 			attributes: [
 				{name: "name", value: name},
 			],
-			platform: pPlatform,
+			parent: pPlatform,
 			tag: "preference",
 		};
 
@@ -739,7 +739,7 @@ export default class XMLSugar {
 	 */
 	public findPluginVariable(pluginName: string, varName: string): String {
 		let plugin = this.findPlugin(pluginName);
-		let result: string = null;
+		let result: string;
 		if (plugin) {
 			let nodes = Array.prototype.slice.call(plugin.childNodes);
 			for (let node of nodes) {
@@ -811,7 +811,7 @@ export default class XMLSugar {
 		let plugin = this.findPlugin(pluginName);
 		if (plugin) {
 			let nodes = Array.prototype.slice.call(plugin.childNodes);
-			let node: Element = null;
+			let node: Element;
 			for (let auxNode of nodes) {
 				if (auxNode.nodeType === 1 && (<Element> auxNode).getAttribute("name") === varName) {
 					node = (<Element> auxNode); // nodeType === 1 implies it's an Element
@@ -835,8 +835,9 @@ export default class XMLSugar {
 	public removePluginVariable(pluginName: string, varName: string) {
 		let filter = {
 			attributes: [
-				{name: "name", value: pluginName},
+				{name: "name", value: varName},
 			],
+			parent: pluginName,
 			tag: "variable",
 		};
 		XMLDOM.removeNode(this, filter);
@@ -852,7 +853,7 @@ export default class XMLSugar {
 	public getNode(tagName: string, pPlatform?: string, pFallback: boolean = true): Element {
 		return XMLDOM.findNode(this, {
 			fallback: pFallback,
-			platform: pPlatform,
+			parent: pPlatform,
 			tag: tagName,
 		});
 	}
@@ -864,7 +865,7 @@ export default class XMLSugar {
 	 */
 	public removeNode(tagName: string, pPlatform?: string) {
 		XMLDOM.removeNode(this, {
-			platform: pPlatform,
+			parent: pPlatform,
 			tag: tagName,
 		});
 	}
@@ -890,7 +891,7 @@ export default class XMLSugar {
 	 */
 	public setNodeValue(tagName: string, pValue: string, pPlatform?: string) {
 		XMLDOM.updateOrAddNode(this, {
-			platform: pPlatform,
+			parent: pPlatform,
 			tag: tagName,
 		}, {
 			value: pValue,
