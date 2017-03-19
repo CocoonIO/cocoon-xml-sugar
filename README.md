@@ -15,7 +15,7 @@ Sugar for the XML that holds the configuration of a Cocoon.io Project.
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing
-purposes.
+purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
@@ -28,17 +28,19 @@ sudo apt install -y nodejs
 
 ### Installing
 
-Install from [NPM](https://www.npmjs.com/package/cocoon-xml-sugar).
+Clone the repository.
 
 ```bash
-npm install cocoon-xml-sugar
+git clone https://github.com/CocoonIO/cocoon-xml-sugar.git
 ```
 
-And import it in your project.
+And install its dependencies
 
-```js
-import XMLSugar from "cocoon-xml-sugar";
+```bash
+npm install
 ```
+
+The transpiled code should be in the **out** folder.
 
 ## Running the tests
 
@@ -60,6 +62,33 @@ To inspect the code style of the [tests](spec/tests):
 
 ```bash
 npm run inspect-spec
+```
+
+## Deployment
+
+To use this repo as a NPM module in your project follow these instructions.
+
+Install [NodeJS and NPM](https://nodejs.org/en/download/package-manager/) in your system.
+
+```bash
+curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+
+Install the module from [NPM](https://www.npmjs.com/package/cocoon-xml-sugar).
+
+```bash
+npm install cocoon-xml-sugar
+```
+
+And import it in your NodeJS or Web project.
+
+```js
+import XMLSugar from "cocoon-xml-sugar";
+```
+
+```html
+<script src="cocoon-xml-sugar/index.js"></script>
 ```
 
 ## Built With
