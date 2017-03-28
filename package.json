@@ -6,11 +6,11 @@
 	"main": "out/index.js",
 	"types": "out/index.d.ts",
 	"scripts": {
-		"inspect-spec": "node_modules/eslint/bin/eslint.js spec/tests && node_modules/jshint/bin/jshint spec/tests; exit 0",
-		"inspect-src": "node_modules/tslint/bin/tslint --project tsconfig.json; exit 0",
-		"postinstall": "node_modules/typescript/bin/tsc; exit 0",
-		"test": "node_modules/jasmine/bin/jasmine.js",
-		"transpile": "node_modules/typescript/bin/tsc"
+		"inspect-spec": "node_modules/.bin/eslint spec/tests && node_modules/.bin/jshint spec/tests; exit 0",
+		"inspect-src": "node_modules/.bin/tslint --project tsconfig.json; exit 0",
+		"postinstall": "node_modules/.bin/tsc; exit 0",
+		"test": "node_modules/.bin/jasmine",
+		"transpile": "node_modules/.bin/tsc; exit 0"
 	},
 	"repository": {
 		"type": "git",
