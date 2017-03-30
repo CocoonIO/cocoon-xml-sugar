@@ -3,10 +3,11 @@
 import * as detectNode from "detect-node";
 import * as xmldom from "xmldom";
 
-import {bundleIdAliases} from "./constants/c-bundle-id-aliases";
 import {canvasplusPlugins} from "./constants/c-canvasplus-plugins";
-import {versionCodeAliases} from "./constants/c-version-code-aliases";
 import {webviewplusPlugins} from "./constants/c-webviewplus-plugins";
+import {BundleIdAlias} from "./enums/e-bundle-id-alias";
+import {Platform} from "./enums/e-platform";
+import {VersionCodeAlias} from "./enums/e-version-code-alias";
 import {Environment} from "./enums/e-environment";
 import {Orientation} from "./enums/e-orientation";
 import Utils from "./utils";
@@ -269,9 +270,9 @@ export default class XMLSugar {
 	 * @param fallback If you want to retrieve the general bundle ID in case there is no specific for the platform.
 	 * @returns {string}
 	 */
-	public getBundleId(platform?: string, fallback: boolean = true): string {
+	public getBundleId(platform?: Platform, fallback: boolean = true): string {
 		if (platform) {
-			let name = bundleIdAliases[platform];
+			let name = BundleIdAlias[platform];
 			let value = this.root.getAttribute(name);
 			if (value) {
 				return value;
@@ -287,9 +288,9 @@ export default class XMLSugar {
 	 * @param value Bundle ID to set.
 	 * @param platform Name of the platform this bundle ID will affect to. Don't set to affect all o them.
 	 */
-	public setBundleId(value: string, platform?: string) {
+	public setBundleId(value: string, platform?: Platform) {
 		if (platform) {
-			let name = bundleIdAliases[platform];
+			let name = BundleIdAlias[platform];
 			if (name) {
 				if (value) {
 					this.root.setAttribute(name, value);
@@ -311,7 +312,7 @@ export default class XMLSugar {
 	 * @param fallback If you want to retrieve the general version number in case there is no specific for the platform.
 	 * @returns {string}
 	 */
-	public getVersion(platform?: string, fallback: boolean = true): string {
+	public getVersion(platform?: Platform, fallback: boolean = true): string {
 		if (platform) {
 			let version = this.root.getAttribute(platform + "-version");
 			if (version) {
@@ -331,7 +332,7 @@ export default class XMLSugar {
 	 * @param value Version number to set.
 	 * @param platform Name of the platform this version number will affect to. Don't set to affect all o them.
 	 */
-	public setVersion(value: string, platform?: string) {
+	public setVersion(value: string, platform?: Platform) {
 		if (platform) {
 			let name = platform + "-version";
 			if (name) {
@@ -353,14 +354,14 @@ export default class XMLSugar {
 	 * @param fallback If you want to retrieve the general version code in case there is no specific for the platform.
 	 * @returns {string}
 	 */
-	public getVersionCode(platform?: string, fallback: boolean = true): string {
+	public getVersionCode(platform?: Platform, fallback: boolean = true): string {
 		if (platform) {
-			let name = versionCodeAliases[platform];
+			let name = VersionCodeAlias[platform];
 			if (name) {
 				let version = this.root.getAttribute(name);
 				if (version) {
 					return version;
-				} else if (!fallback || platform === "android") {
+				} else if (!fallback || platform === Platform.Android) {
 					return ""; // android versionCode is a number, not a mayor.minor version name
 				} else {
 					this.getVersion(platform);
@@ -378,9 +379,9 @@ export default class XMLSugar {
 	 * @param value Version code to set.
 	 * @param platform Name of the platform this version code will affect to. Don't set to affect all o them.
 	 */
-	public setVersionCode(value: string, platform?: string) {
+	public setVersionCode(value: string, platform?: Platform) {
 		if (platform) {
-			let name = versionCodeAliases[platform];
+			let name = VersionCodeAlias[platform];
 			if (name) {
 				if (value) {
 					this.root.setAttribute(name, value);
@@ -418,7 +419,7 @@ export default class XMLSugar {
 	 * @param pFallback If you want to retrieve the general content URL in case there is no specific for the platform.
 	 * @returns {string}
 	 */
-	public getContentURL(pPlatform?: string, pFallback: boolean = true): string {
+	public getContentURL(pPlatform?: Platform, pFallback: boolean = true): string {
 		let filter = {
 			fallback: pFallback,
 			parent: pPlatform,
@@ -433,7 +434,7 @@ export default class XMLSugar {
 	 * @param pValue Content URL to set.
 	 * @param pPlatform Name of the platform this content URL will affect to. Don't set to affect all o them.
 	 */
-	public setContentURL(pValue: string, pPlatform?: string) {
+	public setContentURL(pValue: string, pPlatform?: Platform) {
 		let filter = {
 			parent: pPlatform,
 			tag: "content",
@@ -456,7 +457,7 @@ export default class XMLSugar {
 	 * @param fallback If you want to retrieve the general orientation in case there is no specific for the platform.
 	 * @returns {Orientation}
 	 */
-	public getOrientation(platform?: string, fallback: boolean = true): Orientation {
+	public getOrientation(platform?: Platform, fallback: boolean = true): Orientation {
 		let value = this.getPreference("Orientation", platform, fallback);
 		if (!value) {
 			return Orientation.SYSTEM_DEFAULT;
@@ -474,16 +475,8 @@ export default class XMLSugar {
 	 * @param value Orientation to set.
 	 * @param platform Name of the platform this orientation will affect to. Don't set to affect all o them.
 	 */
-	public setOrientation(value: Orientation, platform?: string) {
-		let cordovaValue: string = null;
-		if (value === Orientation.PORTRAIT) {
-			cordovaValue = "portrait";
-		} else if (value === Orientation.LANDSCAPE) {
-			cordovaValue = "landscape";
-		} else if (value === Orientation.BOTH) {
-			cordovaValue = "default";
-		}
-		this.setPreference("Orientation", cordovaValue, platform);
+	public setOrientation(value: Orientation, platform?: Platform) {
+		this.setPreference("Orientation", <any> value, platform);
 	}
 
 	/**
@@ -493,7 +486,7 @@ export default class XMLSugar {
 	 * @param fallback If you want to retrieve the general configuration in case there is no specific for the platform.
 	 * @returns {boolean}
 	 */
-	public isFullScreen(platform?: string, fallback: boolean = true): boolean {
+	public isFullScreen(platform?: Platform, fallback: boolean = true): boolean {
 		let value = this.getPreference("Fullscreen", platform, fallback);
 		return value ? value !== "false" : false;
 	}
@@ -503,7 +496,7 @@ export default class XMLSugar {
 	 * @param value If you want the project to compile into fullscreen mode.
 	 * @param platform Name of the platform this configuration will affect to. Don't set to affect all o them.
 	 */
-	public setFullScreen(value: boolean, platform?: string) {
+	public setFullScreen(value: boolean, platform?: Platform) {
 		this.setPreference("Fullscreen", value === null ? null : value.toString(), platform);
 	}
 
@@ -512,7 +505,7 @@ export default class XMLSugar {
 	 * @param platform Name of the platform.
 	 * @returns {string} The node of the platform specified.
 	 */
-	public getCocoonPlatform(platform: string): Element {
+	public getCocoonPlatform(platform: Platform): Element {
 		let filter = {
 			attributes: [
 				{name: "name", value: platform},
@@ -527,7 +520,7 @@ export default class XMLSugar {
 	 * @param platform Name of the platform.
 	 * @returns {boolean} If the platform is enabled.
 	 */
-	public isCocoonPlatformEnabled(platform: string): boolean {
+	public isCocoonPlatformEnabled(platform: Platform): boolean {
 		let preference = this.getPreference("enabled", platform);
 		return preference !== null && preference !== "false";
 	}
@@ -537,7 +530,7 @@ export default class XMLSugar {
 	 * @param platform Name of the platform.
 	 * @param enabled If the platform should be enabled.
 	 */
-	public setCocoonPlatformEnabled(platform: string, enabled: boolean) {
+	public setCocoonPlatformEnabled(platform: Platform, enabled: boolean) {
 		this.setPreference("enabled", enabled ? "true" : "false", platform);
 	}
 
@@ -546,7 +539,7 @@ export default class XMLSugar {
 	 * @param platform Name of the platform.
 	 * @returns {string} The engine node of the platform specified.
 	 */
-	public getCocoonEngine(platform: string): Element {
+	public getCocoonEngine(platform: Platform): Element {
 		let filter = {
 			attributes: [
 				{name: "name", value: platform},
@@ -562,7 +555,7 @@ export default class XMLSugar {
 	 * @param platform Name of the platform.
 	 * @returns {string} The SemVer of the engine for the platform specified.
 	 */
-	public getCocoonEngineSpec(platform: string): string {
+	public getCocoonEngineSpec(platform: Platform): string {
 		let node = this.getCocoonEngine(platform);
 		return node ? node.getAttribute("spec") : null;
 	}
@@ -573,7 +566,7 @@ export default class XMLSugar {
 	 * @param platform Name of the platform.
 	 * @param spec SemVer of the version.
 	 */
-	public setCocoonEngineSpec(platform: string, spec: string = "*") {
+	public setCocoonEngineSpec(platform: Platform, spec: string = "*") {
 		let filter = {
 			attributes: [
 				{name: "name", value: platform},
@@ -596,7 +589,7 @@ export default class XMLSugar {
 	 * @param pFallback If you want to retrieve the general value in case there is no specific for the platform.
 	 * @returns {string}
 	 */
-	public getPreference(name: string, pPlatform?: string, pFallback: boolean = true): string {
+	public getPreference(name: string, pPlatform?: Platform, pFallback: boolean = true): string {
 		let filter = {
 			attributes: [
 				{name: "name", value: name},
@@ -615,7 +608,7 @@ export default class XMLSugar {
 	 * @param pValue Value of the preference.
 	 * @param pPlatform Name of the platform the preference affects to.
 	 */
-	public setPreference(name: string, pValue: string, pPlatform?: string) {
+	public setPreference(name: string, pValue: string, pPlatform?: Platform) {
 		let filter = {
 			attributes: [
 				{name: "name", value: name},
@@ -642,9 +635,9 @@ export default class XMLSugar {
 	 * @param platform Name of the platform the environment affects to. Don't set to retrieve the general environment.
 	 * @returns {Environment}
 	 */
-	public getEnvironment(platform?: string): Environment {
+	public getEnvironment(platform?: Platform): Environment {
 		if (!platform) {
-			let environments = [this.getEnvironment("ios"), this.getEnvironment("android")];
+			let environments = [this.getEnvironment(Platform.IOS), this.getEnvironment(Platform.Android)];
 			for (let j = 1; j < environments.length; ++j) {
 				if (environments[j] !== environments[j - 1]) {
 					// conflict: different environments per platform
@@ -675,7 +668,7 @@ export default class XMLSugar {
 	 * @param value Environment to set.
 	 * @param platform Name of the platform this environment will affect to. Don't set to affect all o them.
 	 */
-	public setEnvironment(value: Environment, platform?: string) {
+	public setEnvironment(value: Environment, platform?: Platform) {
 		let names = platform ? [platform] : ["android", "ios"];
 
 		for (let name of names) {
@@ -850,7 +843,7 @@ export default class XMLSugar {
 	 * @param pFallback If you want to try to retrieve a general node if the node wasn't found in the platform.
 	 * @returns {Element} The XML node.
 	 */
-	public getNode(tagName: string, pPlatform?: string, pFallback: boolean = true): Element {
+	public getNode(tagName: string, pPlatform?: Platform, pFallback: boolean = true): Element {
 		return XMLDOM.findNode(this, {
 			fallback: pFallback,
 			parent: pPlatform,
@@ -863,7 +856,7 @@ export default class XMLSugar {
 	 * @param tagName Name of the node.
 	 * @param pPlatform Parent platform of the node.
 	 */
-	public removeNode(tagName: string, pPlatform?: string) {
+	public removeNode(tagName: string, pPlatform?: Platform) {
 		XMLDOM.removeNode(this, {
 			parent: pPlatform,
 			tag: tagName,
@@ -877,7 +870,7 @@ export default class XMLSugar {
 	 * @param fallback If you want to try to retrieve it from a general node if the node wasn't found in the platform.
 	 * @returns {Element} The XML node.
 	 */
-	public getNodeValue(tagName: string, platform?: string, fallback: boolean = true): string {
+	public getNodeValue(tagName: string, platform?: Platform, fallback: boolean = true): string {
 		let node = this.getNode(tagName, platform, fallback);
 		return node ? node.textContent : null;
 	}
@@ -889,7 +882,7 @@ export default class XMLSugar {
 	 * @param pPlatform Parent platform of the node.
 	 * @returns {Element} The XML node.
 	 */
-	public setNodeValue(tagName: string, pValue: string, pPlatform?: string) {
+	public setNodeValue(tagName: string, pValue: string, pPlatform?: Platform) {
 		XMLDOM.updateOrAddNode(this, {
 			parent: pPlatform,
 			tag: tagName,
