@@ -4,10 +4,6 @@
 [![bitHound Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/dependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/devDependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/code.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar)
-
-[![Code Climate](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/gpa.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar)
-[![Test Coverage](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/coverage.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/coverage)
-[![Issue Count](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/issue_count.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar)
 ---
 
 Sugar for the XML that holds the configuration of a Cocoon.io Project.
@@ -34,7 +30,7 @@ Clone the repository.
 git clone https://github.com/CocoonIO/cocoon-xml-sugar.git
 ```
 
-And install its dependencies
+And install its dependencies.
 
 ```bash
 npm install
@@ -52,13 +48,13 @@ npm test
 
 ### Coding style tests
 
-To inspect the code style of the [source code](src):
+To inspect the code style of the [source code](src).
 
 ```bash
 npm run inspect-src
 ```
 
-To inspect the code style of the [tests](spec/tests):
+To inspect the code style of the [tests](spec/tests).
 
 ```bash
 npm run inspect-spec
@@ -93,14 +89,14 @@ import XMLSugar from "cocoon-xml-sugar";
 
 ## Built With
 
-* [Typescript](https://www.typescriptlang.org/) - Language
-* [NPM](http://www.npmjs.com/) - Dependency Management
-* [Jasmine](https://jasmine.github.io/) - Testing Framework
+* [Typescript](https://www.typescriptlang.org/) - Language.
+* [NPM](http://www.npmjs.com/) - Dependency Management.
+* [Jasmine](https://jasmine.github.io/) - Testing Framework.
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the
-[tags on this repository](https://github.com/CocoonIO/cocoon-xml-sugar/tags). 
+[tags on this repository](https://github.com/CocoonIO/cocoon-xml-sugar/tags).
 
 ## Authors
 
@@ -111,4 +107,4 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

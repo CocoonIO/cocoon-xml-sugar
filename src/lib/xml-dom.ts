@@ -4,9 +4,9 @@ import XMLSugar from "./xml-sugar";
 
 export default class XMLDOM {
 	public static findNode(sugar: XMLSugar, filter: any): Element {
-		let nodes = XMLDOM.getElements(sugar, filter);
+		const nodes = XMLDOM.getElements(sugar, filter);
 
-		for (let node of nodes) {
+		for (const node of nodes) {
 			if (XMLDOM.matchesFilter(sugar, node, filter)) {
 				return node;
 			}
@@ -20,10 +20,10 @@ export default class XMLDOM {
 	}
 
 	public static findNodes(doc: XMLSugar, filter: any): Element[] {
-		let nodes = XMLDOM.getElements(doc, filter);
+		const nodes = XMLDOM.getElements(doc, filter);
 
-		let result: Element[] = [];
-		for (let node of nodes) {
+		const result: Element[] = [];
+		for (const node of nodes) {
 			if (XMLDOM.matchesFilter(doc, node, filter)) {
 				result.push(node);
 			}
@@ -48,7 +48,7 @@ export default class XMLDOM {
 	public static updateOrAddNode(sugar: XMLSugar, filter: any, data: any) {
 		let found = XMLDOM.findNode(sugar, filter);
 		if (!found) {
-			let parent = XMLDOM.parentNodeForPlatform(sugar, filter.parent);
+			const parent = XMLDOM.parentNodeForPlatform(sugar, filter.parent);
 			found = sugar.doc.createElementNS(null, filter.tag);
 			XMLDOM.addNodeIndented(sugar, found, parent);
 		}
@@ -57,7 +57,7 @@ export default class XMLDOM {
 			found.textContent = data.value || "";
 		}
 		if (data.attributes) {
-			for (let attr of data.attributes) {
+			for (const attr of data.attributes) {
 				if (attr.value === null) {
 					found.removeAttribute(attr.name);
 				} else {
@@ -68,15 +68,15 @@ export default class XMLDOM {
 	}
 
 	public static removeNode(sugar: XMLSugar, filter: any) {
-		let node = XMLDOM.findNode(sugar, filter);
+		const node = XMLDOM.findNode(sugar, filter);
 		if (node && node.parentNode) {
-			let parent = <Element> node.parentNode;
+			const parent = node.parentNode as Element;
 			parent.removeChild(node);
 
 			/*remove empty platform node*/
 			if (parent.tagName === "platform" && parent.parentNode) {
-				let children = parent.childNodes;
-				for (let child of children) {
+				const children = parent.childNodes;
+				for (const child of children) {
 					if (child.nodeType !== 3) {
 						return;
 					}
@@ -91,7 +91,7 @@ export default class XMLDOM {
 	}
 
 	private static matchesFilter(sugar: XMLSugar, node: Element, filter: any) {
-		let parent = <Element> node.parentNode;
+		const parent = node.parentNode as Element;
 		if (filter.parent) {
 			if (parent.getAttribute && parent.getAttribute("name") !== filter.parent) {
 				return false;
@@ -106,7 +106,7 @@ export default class XMLDOM {
 		}
 
 		if (filter.attributes) {
-			for (let attr of filter.attributes) {
+			for (const attr of filter.attributes) {
 				if (node.getAttribute(attr.name) !== attr.value) {
 					return false;
 				}
