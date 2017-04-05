@@ -1,7 +1,7 @@
 "use strict";
 
 export enum Environment {
-	CANVAS_PLUS = <any> "canvasplus",
-	WEBVIEW = <any> "system_webview",
-	WEBVIEW_PLUS = <any> "webviewplus",
+	CANVAS_PLUS = "canvasplus" as any,
+	WEBVIEW = "system_webview" as any,
+	WEBVIEW_PLUS = "webviewplus" as any,
 }

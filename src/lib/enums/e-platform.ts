@@ -1,9 +1,9 @@
 "use strict";
 
 export enum Platform {
-	Android = <any> "android",
-	IOS = <any> "ios",
-	MacOS = <any> "osx",
-	Ubuntu = <any> "ubuntu",
-	Windows = <any> "windows",
+	Android = "android" as any,
+	IOS = "ios" as any,
+	MacOS = "osx" as any,
+	Ubuntu = "ubuntu" as any,
+	Windows = "windows" as any,
 }

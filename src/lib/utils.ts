@@ -26,7 +26,7 @@ export default class Utils {
 		let lastType: string = "other";
 		// 4 types of tags - single, closing, opening, other (text, doctype, comment) - 4*4 = 16 transitions
 		//noinspection TsLint
-		const transitions: {[key: string]: number} = {
+		const transitions: { [key: string]: number } = {
 			"single->single": 0,
 			"single->closing": -1,
 			"single->opening": 0,
@@ -45,7 +45,7 @@ export default class Utils {
 			"other->other": 0,
 		};
 
-		for (let line of lines) {
+		for (const line of lines) {
 			const ln: string = line.trim();
 			const single: boolean = Boolean(ln.match(/<.+\/>/)); // is this line a single tag? ex. <br />
 			const closing: boolean = Boolean(ln.match(/<\/.+>/)); // is this a closing tag? ex. </a>

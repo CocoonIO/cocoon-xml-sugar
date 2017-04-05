@@ -1,8 +1,8 @@
 "use strict";
 
 export enum Orientation {
-	BOTH = <any> "both",
-	LANDSCAPE = <any> "landscape",
-	PORTRAIT = <any> "portrait",
-	SYSTEM_DEFAULT = <any> "default",
+	BOTH = "both" as any,
+	LANDSCAPE = "landscape" as any,
+	PORTRAIT = "portrait" as any,
+	SYSTEM_DEFAULT = "default" as any,
 }

@@ -6,10 +6,10 @@ import * as xmldom from "xmldom";
 import {canvasplusPlugins} from "./constants/c-canvasplus-plugins";
 import {webviewplusPlugins} from "./constants/c-webviewplus-plugins";
 import {BundleIdAlias} from "./enums/e-bundle-id-alias";
-import {Platform} from "./enums/e-platform";
-import {VersionCodeAlias} from "./enums/e-version-code-alias";
 import {Environment} from "./enums/e-environment";
 import {Orientation} from "./enums/e-orientation";
+import {Platform} from "./enums/e-platform";
+import {VersionCodeAlias} from "./enums/e-version-code-alias";
 import Utils from "./utils";
 import XMLDOM from "./xml-dom";
 
@@ -19,10 +19,10 @@ export default class XMLSugar {
 			return str;
 		}
 		return str.replace(/&/g, "&amp;")
-			.replace(/</g, "&lt;")
-			.replace(/>/g, "&gt;")
-			.replace(/"/g, "&quot;")
-			.replace(/"/g, "&apos;");
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/"/g, "&apos;");
 	}
 
 	private static decode(str: string): string {
@@ -30,10 +30,10 @@ export default class XMLSugar {
 			return str;
 		}
 		return str.replace(/&apos;/g, "\"")
-			.replace(/&quot;/g, "")
-			.replace(/&gt;/g, ">")
-			.replace(/&lt;/g, "<")
-			.replace(/&amp;/g, "&");
+		.replace(/&quot;/g, "")
+		.replace(/&gt;/g, ">")
+		.replace(/&lt;/g, "<")
+		.replace(/&amp;/g, "&");
 	}
 
 	/**
@@ -55,27 +55,27 @@ export default class XMLSugar {
 	 * @returns {Document} the same configuration using only Cordova tags.
 	 */
 	private static replaceOldPlatformSyntax(doc: Document): Document {
-		let platforms = Array.prototype.slice.call(doc.getElementsByTagNameNS(cocoonNS, "platform"));
+		const platforms = Array.prototype.slice.call(doc.getElementsByTagNameNS(cocoonNS, "platform"));
 
-		for (let platform of platforms) {
-			let platformEle: Element = doc.createElementNS(null, "platform");
+		for (const platform of platforms) {
+			const platformEle: Element = doc.createElementNS(null, "platform");
 			platformEle.setAttribute("name", platform.getAttribute("name"));
 			if (platform.getAttribute("version")) {
-				let engine: Element = doc.createElementNS(null, "engine");
+				const engine: Element = doc.createElementNS(null, "engine");
 				engine.setAttribute("name", platform.getAttribute("name"));
 				engine.setAttribute("spec", platform.getAttribute("version"));
 				platform.parentNode.insertBefore(engine, platform);
 			}
 
-			let children = platform.childNodes;
-			for (let child of children) {
+			const children = platform.childNodes;
+			for (const child of children) {
 				if (child.nodeType === 1) {
 					platformEle.appendChild(child);
 				}
 			}
 
 			if (platform.getAttribute("enabled")) {
-				let preference: Element = doc.createElementNS(null, "preference");
+				const preference: Element = doc.createElementNS(null, "preference");
 				preference.setAttribute("name", "enabled");
 				preference.setAttribute("value", platform.getAttribute("enabled"));
 				platformEle.appendChild(preference);
@@ -94,10 +94,10 @@ export default class XMLSugar {
 	 * @returns {Document} the same configuration using only Cordova tags.
 	 */
 	private static replaceOldPluginSyntax(doc: Document): Document {
-		let plugins = Array.prototype.slice.call(doc.getElementsByTagNameNS(cocoonNS, "plugin"));
+		const plugins = Array.prototype.slice.call(doc.getElementsByTagNameNS(cocoonNS, "plugin"));
 
-		for (let plugin of plugins) {
-			let pluginEle = doc.createElementNS(null, "plugin");
+		for (const plugin of plugins) {
+			const pluginEle = doc.createElementNS(null, "plugin");
 			pluginEle.setAttribute("name", plugin.getAttribute("name"));
 			if (Utils.isValidGit(plugin.getAttribute("name"))) {
 				pluginEle.setAttribute("spec", plugin.getAttribute("name"));
@@ -105,12 +105,12 @@ export default class XMLSugar {
 				pluginEle.setAttribute("spec", plugin.getAttribute("version"));
 			}
 
-			let children = plugin.childNodes;
-			for (let child of children) {
+			const children = plugin.childNodes;
+			for (const child of children) {
 				if (child.nodeType === 1 && child.nodeName.toUpperCase() === "PARAM") {
-					let variable: Element = doc.createElementNS(null, "variable");
-					variable.setAttribute("name", (<Element> child).getAttribute("name")); // nodeType === 1 implies it's an Element
-					variable.setAttribute("value", (<Element> child).getAttribute("value"));
+					const variable: Element = doc.createElementNS(null, "variable");
+					variable.setAttribute("name", (child as Element).getAttribute("name")); // nodeType === 1 implies it's an Element
+					variable.setAttribute("value", (child as Element).getAttribute("value"));
 					pluginEle.appendChild(variable);
 				} else if (child.nodeType === 1) {
 					pluginEle.appendChild(child);
@@ -131,9 +131,9 @@ export default class XMLSugar {
 	 * @returns {Document} the same configuration using only Cordova tags.
 	 */
 	private static replaceErrors(doc: Document): Document {
-		let plugins = Array.prototype.slice.call(doc.getElementsByTagName("plugin"));
+		const plugins = Array.prototype.slice.call(doc.getElementsByTagName("plugin"));
 
-		for (let plugin of plugins) {
+		for (const plugin of plugins) {
 			if (Utils.isValidGit(plugin.getAttribute("name")) &&
 				plugin.getAttribute("name") !== plugin.getAttribute("spec")) {
 				plugin.setAttribute("spec", plugin.getAttribute("name"));
@@ -157,7 +157,7 @@ export default class XMLSugar {
 		}
 
 		this.doc = XMLSugar.replaceOldSyntax(parser.parseFromString(text, "text/xml"));
-		let root = this.doc.getElementsByTagName("widget")[0];
+		const root = this.doc.getElementsByTagName("widget")[0];
 		if (root && !root.getAttributeNS(xmlnsNS, "cdv")) {
 			root.setAttributeNS(xmlnsNS, "xmlns:cdv", cordovaNS);
 		}
@@ -272,8 +272,8 @@ export default class XMLSugar {
 	 */
 	public getBundleId(platform?: Platform, fallback: boolean = true): string {
 		if (platform) {
-			let name = BundleIdAlias[platform];
-			let value = this.root.getAttribute(name);
+			const name = BundleIdAlias[platform];
+			const value = this.root.getAttribute(name);
 			if (value) {
 				return value;
 			} else if (!fallback) {
@@ -290,7 +290,7 @@ export default class XMLSugar {
 	 */
 	public setBundleId(value: string, platform?: Platform) {
 		if (platform) {
-			let name = BundleIdAlias[platform];
+			const name = BundleIdAlias[platform];
 			if (name) {
 				if (value) {
 					this.root.setAttribute(name, value);
@@ -314,7 +314,7 @@ export default class XMLSugar {
 	 */
 	public getVersion(platform?: Platform, fallback: boolean = true): string {
 		if (platform) {
-			let version = this.root.getAttribute(platform + "-version");
+			const version = this.root.getAttribute(platform + "-version");
 			if (version) {
 				return version;
 			} else if (fallback) {
@@ -334,7 +334,7 @@ export default class XMLSugar {
 	 */
 	public setVersion(value: string, platform?: Platform) {
 		if (platform) {
-			let name = platform + "-version";
+			const name = platform + "-version";
 			if (name) {
 				if (value) {
 					this.root.setAttribute(name, value);
@@ -356,9 +356,9 @@ export default class XMLSugar {
 	 */
 	public getVersionCode(platform?: Platform, fallback: boolean = true): string {
 		if (platform) {
-			let name = VersionCodeAlias[platform];
+			const name = VersionCodeAlias[platform];
 			if (name) {
-				let version = this.root.getAttribute(name);
+				const version = this.root.getAttribute(name);
 				if (version) {
 					return version;
 				} else if (!fallback || platform === Platform.Android) {
@@ -381,7 +381,7 @@ export default class XMLSugar {
 	 */
 	public setVersionCode(value: string, platform?: Platform) {
 		if (platform) {
-			let name = VersionCodeAlias[platform];
+			const name = VersionCodeAlias[platform];
 			if (name) {
 				if (value) {
 					this.root.setAttribute(name, value);
@@ -420,12 +420,12 @@ export default class XMLSugar {
 	 * @returns {string}
 	 */
 	public getContentURL(pPlatform?: Platform, pFallback: boolean = true): string {
-		let filter = {
+		const filter = {
 			fallback: pFallback,
 			parent: pPlatform,
 			tag: "content",
 		};
-		let node = XMLDOM.findNode(this, filter);
+		const node = XMLDOM.findNode(this, filter);
 		return node ? node.getAttribute("src") : "";
 	}
 
@@ -435,12 +435,12 @@ export default class XMLSugar {
 	 * @param pPlatform Name of the platform this content URL will affect to. Don't set to affect all o them.
 	 */
 	public setContentURL(pValue: string, pPlatform?: Platform) {
-		let filter = {
+		const filter = {
 			parent: pPlatform,
 			tag: "content",
 		};
 		if (pValue) {
-			let update = {
+			const update = {
 				attributes: [
 					{name: "src", value: pValue},
 				],
@@ -458,7 +458,7 @@ export default class XMLSugar {
 	 * @returns {Orientation}
 	 */
 	public getOrientation(platform?: Platform, fallback: boolean = true): Orientation {
-		let value = this.getPreference("Orientation", platform, fallback);
+		const value = this.getPreference("Orientation", platform, fallback);
 		if (!value) {
 			return Orientation.SYSTEM_DEFAULT;
 		} else if (value === "portrait") {
@@ -476,7 +476,7 @@ export default class XMLSugar {
 	 * @param platform Name of the platform this orientation will affect to. Don't set to affect all o them.
 	 */
 	public setOrientation(value: Orientation, platform?: Platform) {
-		this.setPreference("Orientation", <any> value, platform);
+		this.setPreference("Orientation", value as any, platform);
 	}
 
 	/**
@@ -487,7 +487,7 @@ export default class XMLSugar {
 	 * @returns {boolean}
 	 */
 	public isFullScreen(platform?: Platform, fallback: boolean = true): boolean {
-		let value = this.getPreference("Fullscreen", platform, fallback);
+		const value = this.getPreference("Fullscreen", platform, fallback);
 		return value ? value !== "false" : false;
 	}
 
@@ -506,7 +506,7 @@ export default class XMLSugar {
 	 * @returns {string} The node of the platform specified.
 	 */
 	public getCocoonPlatform(platform: Platform): Element {
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: platform},
 			],
@@ -521,7 +521,7 @@ export default class XMLSugar {
 	 * @returns {boolean} If the platform is enabled.
 	 */
 	public isCocoonPlatformEnabled(platform: Platform): boolean {
-		let preference = this.getPreference("enabled", platform);
+		const preference = this.getPreference("enabled", platform);
 		return preference !== null && preference !== "false";
 	}
 
@@ -540,7 +540,7 @@ export default class XMLSugar {
 	 * @returns {string} The engine node of the platform specified.
 	 */
 	public getCocoonEngine(platform: Platform): Element {
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: platform},
 			],
@@ -556,7 +556,7 @@ export default class XMLSugar {
 	 * @returns {string} The SemVer of the engine for the platform specified.
 	 */
 	public getCocoonEngineSpec(platform: Platform): string {
-		let node = this.getCocoonEngine(platform);
+		const node = this.getCocoonEngine(platform);
 		return node ? node.getAttribute("spec") : null;
 	}
 
@@ -567,13 +567,13 @@ export default class XMLSugar {
 	 * @param spec SemVer of the version.
 	 */
 	public setCocoonEngineSpec(platform: Platform, spec: string = "*") {
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: platform},
 			],
 			tag: "engine",
 		};
-		let update = {
+		const update = {
 			attributes: [
 				{name: "name", value: platform},
 				{name: "spec", value: spec},
@@ -590,7 +590,7 @@ export default class XMLSugar {
 	 * @returns {string}
 	 */
 	public getPreference(name: string, pPlatform?: Platform, pFallback: boolean = true): string {
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: name},
 			],
@@ -598,7 +598,7 @@ export default class XMLSugar {
 			parent: pPlatform,
 			tag: "preference",
 		};
-		let node = XMLDOM.findNode(this, filter);
+		const node = XMLDOM.findNode(this, filter);
 		return node ? node.getAttribute("value") : null;
 	}
 
@@ -609,7 +609,7 @@ export default class XMLSugar {
 	 * @param pPlatform Name of the platform the preference affects to.
 	 */
 	public setPreference(name: string, pValue: string, pPlatform?: Platform) {
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: name},
 			],
@@ -618,7 +618,7 @@ export default class XMLSugar {
 		};
 
 		if (pValue) {
-			let update = {
+			const update = {
 				attributes: [
 					{name: "name", value: name},
 					{name: "value", value: pValue},
@@ -637,7 +637,7 @@ export default class XMLSugar {
 	 */
 	public getEnvironment(platform?: Platform): Environment {
 		if (!platform) {
-			let environments = [this.getEnvironment(Platform.IOS), this.getEnvironment(Platform.Android)];
+			const environments = [this.getEnvironment(Platform.IOS), this.getEnvironment(Platform.Android)];
 			for (let j = 1; j < environments.length; ++j) {
 				if (environments[j] !== environments[j - 1]) {
 					// conflict: different environments per platform
@@ -648,13 +648,13 @@ export default class XMLSugar {
 			return environments[0];
 		}
 
-		let environmentsPlugins: any[] = [canvasplusPlugins, webviewplusPlugins];
+		const environmentsPlugins: any[] = [canvasplusPlugins, webviewplusPlugins];
 
 		let env = Environment.WEBVIEW;
-		for (let environmentPlugins of environmentsPlugins) {
-			let platformEnvironmentPlugin = environmentPlugins[platform];
+		for (const environmentPlugins of environmentsPlugins) {
+			const platformEnvironmentPlugin = environmentPlugins[platform];
 			if (platformEnvironmentPlugin) {
-				let pluginElement = this.findPlugin(platformEnvironmentPlugin.plugin);
+				const pluginElement = this.findPlugin(platformEnvironmentPlugin.plugin);
 				if (pluginElement) {
 					env = environmentPlugins.value;
 				}
@@ -669,9 +669,9 @@ export default class XMLSugar {
 	 * @param platform Name of the platform this environment will affect to. Don't set to affect all o them.
 	 */
 	public setEnvironment(value: Environment, platform?: Platform) {
-		let names = platform ? [platform] : ["android", "ios"];
+		const names = platform ? [platform] : ["android", "ios"];
 
-		for (let name of names) {
+		for (const name of names) {
 			let info: any;
 			if (value === Environment.CANVAS_PLUS) {
 				info = canvasplusPlugins[name];
@@ -686,8 +686,8 @@ export default class XMLSugar {
 					this.removePlugin(canvasplusPlugins[name].plugin);
 				}
 			} else {
-				let infos = [canvasplusPlugins, webviewplusPlugins];
-				for (let auxInfo of infos) {
+				const infos = [canvasplusPlugins, webviewplusPlugins];
+				for (const auxInfo of infos) {
 					info = auxInfo[name];
 					if (!info) {
 						continue;
@@ -704,7 +704,7 @@ export default class XMLSugar {
 	 * @returns {Element} The plugin with the given name in the project.
 	 */
 	public findPlugin(name: string): Element {
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: name},
 			],
@@ -718,7 +718,7 @@ export default class XMLSugar {
 	 * @returns {Element} Every plugin in the project.
 	 */
 	public findAllPlugins(): Element[] {
-		let filter = {
+		const filter = {
 			tag: "plugin",
 		};
 		return XMLDOM.findNodes(this, filter);
@@ -730,14 +730,14 @@ export default class XMLSugar {
 	 * @param varName Name of the variable.
 	 * @returns {string} Value of the variable in the specified plugin.
 	 */
-	public findPluginVariable(pluginName: string, varName: string): String {
-		let plugin = this.findPlugin(pluginName);
+	public findPluginVariable(pluginName: string, varName: string): string {
+		const plugin = this.findPlugin(pluginName);
 		let result: string;
 		if (plugin) {
-			let nodes = Array.prototype.slice.call(plugin.childNodes);
-			for (let node of nodes) {
-				if (node.nodeType === 1 && (<Element> node).getAttribute("name") === varName) {
-					result = XMLSugar.decode((<Element> node).getAttribute("value")) || ""; // nodeType === 1 implies it's an Element
+			const nodes = Array.prototype.slice.call(plugin.childNodes);
+			for (const node of nodes) {
+				if (node.nodeType === 1 && (node as Element).getAttribute("name") === varName) {
+					result = XMLSugar.decode((node as Element).getAttribute("value")) || ""; // nodeType === 1 implies it's an Element
 					break;
 				}
 			}
@@ -754,13 +754,13 @@ export default class XMLSugar {
 		if (Utils.isValidUrl(name) && name.indexOf(".git") !== -1 && name !== spec) {
 			spec = name;
 		}
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: name},
 			],
 			tag: "plugin",
 		};
-		let update = {
+		const update = {
 			attributes: [
 				{name: "name", value: name},
 				{name: "spec", value: spec},
@@ -774,7 +774,7 @@ export default class XMLSugar {
 	 * @param name Name of the plugin to remove.
 	 */
 	public removePlugin(name: string) {
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: name},
 			],
@@ -789,7 +789,7 @@ export default class XMLSugar {
 	 * @returns {NodeListOf<Element>} List of the variables in the specified plugin. Null if the plugin doesn't exist.
 	 */
 	public getPluginVariables(pluginName: string): NodeListOf<Element> {
-		let plugin = this.findPlugin(pluginName);
+		const plugin = this.findPlugin(pluginName);
 		return plugin ? plugin.getElementsByTagName("variable") : null;
 	}
 
@@ -801,13 +801,13 @@ export default class XMLSugar {
 	 */
 	public addPluginVariable(pluginName: string, varName: string, varValue: string) {
 		this.addPlugin(pluginName);
-		let plugin = this.findPlugin(pluginName);
+		const plugin = this.findPlugin(pluginName);
 		if (plugin) {
-			let nodes = Array.prototype.slice.call(plugin.childNodes);
+			const nodes = Array.prototype.slice.call(plugin.childNodes);
 			let node: Element;
-			for (let auxNode of nodes) {
-				if (auxNode.nodeType === 1 && (<Element> auxNode).getAttribute("name") === varName) {
-					node = (<Element> auxNode); // nodeType === 1 implies it's an Element
+			for (const auxNode of nodes) {
+				if (auxNode.nodeType === 1 && (auxNode as Element).getAttribute("name") === varName) {
+					node = (auxNode as Element); // nodeType === 1 implies it's an Element
 					break;
 				}
 			}
@@ -826,7 +826,7 @@ export default class XMLSugar {
 	 * @param varName Name of the variable.
 	 */
 	public removePluginVariable(pluginName: string, varName: string) {
-		let filter = {
+		const filter = {
 			attributes: [
 				{name: "name", value: varName},
 			],
@@ -871,7 +871,7 @@ export default class XMLSugar {
 	 * @returns {Element} The XML node.
 	 */
 	public getNodeValue(tagName: string, platform?: Platform, fallback: boolean = true): string {
-		let node = this.getNode(tagName, platform, fallback);
+		const node = this.getNode(tagName, platform, fallback);
 		return node ? node.textContent : null;
 	}
 
