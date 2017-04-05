@@ -4,10 +4,6 @@
 [![bitHound Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/dependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/devDependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/code.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar)
-
-[![Code Climate](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/gpa.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar)
-[![Test Coverage](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/coverage.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/coverage)
-[![Issue Count](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/badges/issue_count.svg)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar)
 ---
 
 Sugar for the XML that holds the configuration of a Cocoon.io Project.
