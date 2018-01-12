@@ -1,6 +1,6 @@
 {
 	"name": "cocoon-xml-sugar",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Sugar for the XML that holds the configuration of a Cocoon.io Project",
 	"keywords": [
 		"apps",
