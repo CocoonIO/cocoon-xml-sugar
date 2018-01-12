@@ -1,7 +1,20 @@
 {
 	"extends": "tslint:recommended",
-	"rules" : {
-		"variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-trailing-underscore"],
-		"indent": [true, "tabs"]
+	"rules": {
+		"indent": [
+			true,
+			"tabs"
+		],
+		"no-console": [
+			true,
+			"log"
+		],
+		"variable-name": [
+			true,
+			"ban-keywords",
+			"check-format",
+			"allow-leading-underscore",
+			"allow-trailing-underscore"
+		]
 	}
 }
