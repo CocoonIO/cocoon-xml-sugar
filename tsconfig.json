@@ -1,15 +1,26 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
+		"moduleResolution": "node",
 		"target": "es6",
-		"noImplicitAny": true,
-		"removeComments": true,
+
 		"preserveConstEnums": true,
+		"removeComments": false,
+
 		"sourceMap": true,
+		"outDir": "out",
+
 		"declaration": true,
-		"outDir": "out"
+		"declarationDir": "declarations",
+
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": false
 	},
-	"files": [
-		"src/index.ts"
+	"include": [
+		"src/**/*",
+		"custom_typings/**/*"
 	]
 }

@@ -1,12 +1,14 @@
 language: node_js
 node_js:
+- '9'
+- '8'
 - '7'
-- '6'
 deploy:
   provider: npm
   email: apps@ludei.com
   api_key:
     secure: EaSGyCXpkR5s+bAjNWmEJkuocisFtx7+ZurZUxPojk01NS5vtrxpG9VMLpXKNwVs4pV7zdMwOLI13HePXVYoM4EJrduPIleYR92cgKMeNJ4UVt8PTp1x4a4poH+hTq4pVooqyjav0NSylPPNPwch3kgs9rtT2WLdKoihy0ajNN33e6pY4Y4OabVp46uDPO3JwK4O2I/x7dqwN6/fRhUylyEcFWVf7McXuuOlQ2v4ggr6fp5P4ARiAIMYbp6BcTGfG/TBO3oFKu2cpnRd0/Rgj2rFVbdG+ifGNYYIzJYYJYzdItN5GmQkr2tc5F/eb+2lWNK3wgSRq3zl5mfGxqmmjN2P0czAgzxDoTf/mP2l9X63Lr/h1fDm8IAky2QtEHHPYbqfsrpprbMCAY2ZNQEYF8nkvddS+YZ0PFWY83Ah0sm1SBb9Zd0vOLzr1grPqXXncRsly6C7MUKS96KIZn7vxq2mN28pvgKVJyZB7shi51mheCR3grIUHySJHZ1uOXEQCzksZX256HiIjQxkhh+RLYK4PsMUZUe+MHOQ8KuBC+ezWH/7UYRlF3VePpcitoxSeTIHYZYTH9+5jUKWYRS0JOFD5UajbwfwgiImsUn5ic0quFu+9cm7czZTDdJqp5CMolD9L6Alehc4gL1Zi/7tN/DKAGKaywNFst/cVkAiBn8=
+  skip_cleanup: true
   on:
     tags: true
-    repo: CocoonIO/cocoon-xml-sugar
+    branch: master

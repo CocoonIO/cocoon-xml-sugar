@@ -1,21 +1,7 @@
 {
 	"name": "cocoon-xml-sugar",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Sugar for the XML that holds the configuration of a Cocoon.io Project",
-	"files": ["out"],
-	"main": "out/index.js",
-	"types": "out/index.d.ts",
-	"scripts": {
-		"inspect-spec": "node_modules/.bin/eslint spec/tests && node_modules/.bin/jshint spec/tests; exit 0",
-		"inspect-src": "node_modules/.bin/tslint --project tsconfig.json; exit 0",
-		"postinstall": "node_modules/.bin/tsc; exit 0",
-		"test": "node_modules/.bin/jasmine",
-		"transpile": "node_modules/.bin/tsc; exit 0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/CocoonIO/cocoon-xml-sugar"
-	},
 	"keywords": [
 		"apps",
 		"cocoon",
@@ -30,20 +16,37 @@
 	],
 	"author": "Ludei Developers <devs@ludei.com>",
 	"license": "MIT",
+	"homepage": "https://github.com/CocoonIO/cocoon-xml-sugar",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CocoonIO/cocoon-xml-sugar"
+	},
 	"bugs": {
 		"url": "https://github.com/CocoonIO/cocoon-xml-sugar/issues"
 	},
-	"homepage": "https://github.com/CocoonIO/cocoon-xml-sugar",
+	"files": [
+		"declarations",
+		"out"
+	],
+	"main": "out/index.js",
+	"types": "declarations/index.d.ts",
+	"scripts": {
+		"inspect-spec": "eslint spec/tests && jshint spec/tests",
+		"inspect-src": "tslint --project tsconfig.json",
+		"prepare": "npm run transpile",
+		"test": "npm run prepare && jasmine",
+		"transpile": "tsc"
+	},
 	"dependencies": {
 		"detect-node": "^2.0.3",
 		"xmldom": "^0.1.27"
 	},
 	"devDependencies": {
-		"@types/node": "^7.0.12",
-		"eslint": "^3.19.0",
-		"jasmine": "^2.5.3",
-		"jshint": "^2.9.4",
-		"tslint": "^5.0.0",
-		"typescript": "^2.2.2"
+		"@types/node": "^9.3.0",
+		"eslint": "^4.15.0",
+		"jasmine": "^2.8.0",
+		"jshint": "^2.9.5",
+		"tslint": "^5.9.1",
+		"typescript": "^2.6.2"
 	}
 }
