@@ -1,7 +1,7 @@
 # Cocoon XML Sugar [![Build Status](https://travis-ci.org/CocoonIO/cocoon-xml-sugar.svg?branch=master)](https://travis-ci.org/CocoonIO/cocoon-xml-sugar) [![npm](https://img.shields.io/npm/v/cocoon-xml-sugar.svg)](https://www.npmjs.com/package/cocoon-xml-sugar)
 
 [![Dependencies](https://david-dm.org/cocoonio/cocoon-xml-sugar/status.svg)](https://david-dm.org/cocoonio/cocoon-xml-sugar)
-[![devDependencies](https://david-dm.org/cocoonio/cocoon-xml-sugar/dev-status.svg)](https://david-dm.org/cocoonio/cocoon-xml-sugar)
+[![devDependencies](https://david-dm.org/cocoonio/cocoon-xml-sugar/dev-status.svg)](https://david-dm.org/cocoonio/cocoon-xml-sugar?type=dev)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5723b84105131d3795ce/maintainability)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5723b84105131d3795ce/test_coverage)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/test_coverage)
 ---
