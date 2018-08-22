@@ -1,9 +1,9 @@
 # Cocoon XML Sugar [![Build Status](https://travis-ci.org/CocoonIO/cocoon-xml-sugar.svg?branch=master)](https://travis-ci.org/CocoonIO/cocoon-xml-sugar) [![npm](https://img.shields.io/npm/v/cocoon-xml-sugar.svg)](https://www.npmjs.com/package/cocoon-xml-sugar)
 
-[![bitHound Overall Score](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/score.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar)
-[![bitHound Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/dependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
-[![bitHound Dev Dependencies](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/devDependencies.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/master/dependencies/npm)
-[![bitHound Code](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar/badges/code.svg)](https://www.bithound.io/github/CocoonIO/cocoon-xml-sugar)
+[![Dependencies](https://david-dm.org/cocoonio/cocoon-xml-sugar/status.svg)](https://david-dm.org/cocoonio/cocoon-xml-sugar)
+[![devDependencies](https://david-dm.org/cocoonio/cocoon-xml-sugar/dev-status.svg)](https://david-dm.org/cocoonio/cocoon-xml-sugar)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5723b84105131d3795ce/maintainability)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5723b84105131d3795ce/test_coverage)](https://codeclimate.com/github/CocoonIO/cocoon-xml-sugar/test_coverage)
 ---
 
 Sugar for the XML that holds the configuration of a Cocoon.io Project.
@@ -18,7 +18,7 @@ purposes. See deployment for notes on how to deploy the project on a live system
 You need to have [NodeJS and NPM](https://nodejs.org/en/download/package-manager/) installed in your system.
 
 ```bash
-curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install -y nodejs
 ```
 
