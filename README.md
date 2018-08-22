@@ -67,7 +67,7 @@ To use this repo as a NPM module in your project follow these instructions.
 Install [NodeJS and NPM](https://nodejs.org/en/download/package-manager/) in your system.
 
 ```bash
-curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install -y nodejs
 ```
 
